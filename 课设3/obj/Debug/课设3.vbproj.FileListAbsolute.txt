@@ -17,3 +17,5 @@ C:\Users\Dominic\source\repos\课设3\课设3\obj\Debug\AxInterop.WMPLib.dll
 C:\Users\Dominic\source\repos\课设3\课设3\obj\Debug\课设3.vbproj.ResolveComReference.cache
 C:\Users\Dominic\source\repos\课设3\课设3\obj\Debug\课设3.Form2.resources
 C:\Users\Dominic\source\repos\课设3\课设3\obj\Debug\课设3.login.resources
+C:\Users\Dominic\source\repos\课设3\课设3\obj\Debug\课设3.register.resources
+C:\Users\Dominic\source\repos\课设3\课设3\obj\Debug\课设3.registerwarning.resources

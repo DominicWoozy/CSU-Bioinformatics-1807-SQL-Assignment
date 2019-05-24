@@ -23,6 +23,7 @@
                     If p = Trim(TextBox2.Text) Then
                         MsgBox("登陆成功")
                         Form1.Show()
+                        Form1.userid = user
                         Me.Finalize()
                     Else
                         If count = 3 Then
@@ -60,5 +61,9 @@
         If e.KeyChar = ChrW(13) Then
             Me.Button2.PerformClick()
         End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        register.Show()
     End Sub
 End Class

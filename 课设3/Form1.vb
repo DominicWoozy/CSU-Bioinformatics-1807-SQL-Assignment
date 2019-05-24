@@ -6,27 +6,14 @@ Public Class Form1
     Public sqlcon As New SqlConnection("server=(local);database=music;Integrated Security=True")
     Public artist As String
     Public album As String
+    Public userid As Integer
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TODO: 这行代码将数据加载到表“MusicDataSet.user_data”中。您可以根据需要移动或删除它。
-        Me.User_dataTableAdapter.Fill(Me.MusicDataSet.user_data)
         'TODO: 这行代码将数据加载到表“MusicDataSet.music_file”中。您可以根据需要移动或删除它。
         Me.Music_fileTableAdapter.Fill(Me.MusicDataSet.music_file)
         'TODO: 这行代码将数据加载到表“MusicDataSet.music_info”中。您可以根据需要移动或删除它。
         Me.Music_infoTableAdapter.Fill(Me.MusicDataSet.music_info)
         'TODO: 这行代码将数据加载到表“MusicDataSet.music_info”中。您可以根据需要移动或删除它。
         Me.Music_infoTableAdapter.Fill(Me.MusicDataSet.music_info)
-        'TODO: 这行代码将数据加载到表“MusicDataSet.lyrics”中。您可以根据需要移动或删除它。
-
-        'TODO: 这行代码将数据加载到表“MusicDataSet.music_info”中。您可以根据需要移动或删除它。
-        Me.Music_infoTableAdapter.Fill(Me.MusicDataSet.music_info)
-        'TODO: 这行代码将数据加载到表“MusicDataSet1.music_file”中。您可以根据需要移动或删除它。
-        Me.Music_infoTableAdapter.Fill(Me.MusicDataSet.music_info)
-        'TODO: 这行代码将数据加载到表“MusicDataSet.music_file”中。您可以根据需要移动或删除它。
-        Me.Music_fileTableAdapter.Fill(Me.MusicDataSet.music_file)
-        'TODO: 这行代码将数据加载到表“MusicDataSet.music_info”中。您可以根据需要移动或删除它。
-        Me.Music_infoTableAdapter.Fill(Me.MusicDataSet.music_info)
-
-
 
     End Sub
 
@@ -36,10 +23,11 @@ Public Class Form1
     End Sub
 
     Private Sub DataGridView1_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentDoubleClick
-        Dim x As Integer, y As Integer, a As Integer, b As Integer
+        Dim x As Integer, y As Integer, a As Integer, b As Integer, i As Integer, j As Integer, musicname As String
         x = DataGridView1.CurrentCellAddress.X
         y = DataGridView1.CurrentCellAddress.Y
         b = DataGridView1.Rows(y).Cells(x - 1).Value
+        musicname = DataGridView1.CurrentCell.Value
         If x = 1 Then
             a = MusicfileBindingSource.Find("music_id", b)
             If a = -1 Then
@@ -47,7 +35,13 @@ Public Class Form1
             Else
                 MusicFilePath = MusicDataSet.music_file.Rows(a)("music_file")
                 AxWindowsMediaPlayer1.URL = System.IO.Path.GetFullPath(MusicFilePath)
-
+                i = User_dataTableAdapter.IfMusicExists(userid, b)
+                If i = 0 Then
+                    User_dataTableAdapter.InsertNewUserdata(userid, b, musicname, 1, 0)
+                Else
+                    User_dataTableAdapter.UserdataMusicCountPlusOne(userid, b)
+                    MsgBox(User_dataTableAdapter.SumAllCounts(userid))
+                End If
             End If
         End If
         If DataGridView1.CurrentCell.ColumnIndex = 3 Then
@@ -100,4 +94,5 @@ Public Class Form1
         Form4.Close()
         End
     End Sub
+
 End Class
